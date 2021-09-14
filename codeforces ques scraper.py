@@ -64,7 +64,8 @@ options = {
     'margin-bottom': '0.75in',
     'margin-left': '0.75in',
     'encoding': "UTF-8",
-    'no-outline': None
+    'no-outline': None,
+    "enable-local-file-access": None
 }
 
 # Gets problem's name, code, related_url
@@ -111,7 +112,10 @@ for prob_no in to_download:
     tags = str(tags)
 
     html = css + ques + "<div style=\"margin:2em\"></p>" + tags
-    pdfkit.from_string(html, pdfName, options=options)
+    #config = pdfkit.configuration(wkhtmltopdf="C:/Users/arihant/AppData/Local/Programs/Python/Python37/Lib/site-packages/wkhtmltopdf")
+    path_wkhtmltopdf = r'C:\Program Files\wkhtmltopdf\bin\wkhtmltopdf.exe'
+    config = pdfkit.configuration(wkhtmltopdf=path_wkhtmltopdf)
+    pdfkit.from_string(html, pdfName, options=options, configuration=config)
     os.rename(pdfName, "./" + "page" + page + "/" + pdfName)
     print(str(prob_no) + ". \"" + pdfName + "\" downloaded")
 
